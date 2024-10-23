@@ -1,0 +1,5 @@
+1.windows需要安装protoc 编译器：https://github.com/protocolbuffers/protobuf/releases
+并配置bin目录到path环境变量
+2.安装protoc-gen-go插件和protoc-gen-go-grpc插件
+并将你的${GoPath}/bin目录配置到path环境变量
+3.运行 compile.bat ,建议使用git bash运行
