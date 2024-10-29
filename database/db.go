@@ -10,8 +10,8 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	"github.com/the-web3/rpc-service/common/retry"
-	"github.com/the-web3/rpc-service/config"
+	"github.com/CavnHan/wallet-rpc-service/common/retry"
+	"github.com/CavnHan/wallet-rpc-service/config"
 )
 
 type DB struct {

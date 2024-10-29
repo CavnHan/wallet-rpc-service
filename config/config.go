@@ -3,13 +3,14 @@ package config
 import (
 	"github.com/urfave/cli/v2"
 
-	"github.com/the-web3/rpc-service/flags"
+	"github.com/CavnHan/wallet-rpc-service/flags"
 )
 
 type Config struct {
 	Migrations    string
 	Database      DBConfig
 	RpcServer     ServerConfig
+	HTTPServer    ServerConfig
 	MetricsServer ServerConfig
 }
 
@@ -39,6 +40,10 @@ func NewConfig(ctx *cli.Context) Config {
 		RpcServer: ServerConfig{
 			Host: ctx.String(flags.RpcHostFlag.Name),
 			Port: ctx.Int(flags.RpcPortFlag.Name),
+		},
+		HTTPServer: ServerConfig{
+			Host: ctx.String(flags.HttpHostFlag.Name),
+			Port: ctx.Int(flags.HttpPortFlag.Name),
 		},
 		MetricsServer: ServerConfig{
 			Host: ctx.String(flags.MetricsHostFlag.Name),

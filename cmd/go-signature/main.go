@@ -6,7 +6,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/log"
 
-	"github.com/the-web3/rpc-service/common/opio"
+	"github.com/CavnHan/wallet-rpc-service/common/opio"
 )
 
 var (

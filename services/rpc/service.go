@@ -1,4 +1,4 @@
-package services
+package rpc
 
 import (
 	"context"
@@ -11,8 +11,8 @@ import (
 
 	"github.com/ethereum/go-ethereum/log"
 
-	"github.com/the-web3/rpc-service/database"
-	"github.com/the-web3/rpc-service/protobuf/wallet"
+	"github.com/CavnHan/wallet-rpc-service/database"
+	"github.com/CavnHan/wallet-rpc-service/protobuf/wallet"
 )
 
 const MaxRecvMessageSize = 1024 * 1024 * 300
@@ -49,7 +49,7 @@ func NewRpcServer(db *database.DB, config *RpcServerConfig) (*RpcServer, error) 
 func (s *RpcServer) Start(ctx context.Context) error {
 	go func(s *RpcServer) {
 		addr := fmt.Sprintf("%s:%d", s.GrpcHostname, s.GrpcPort)
-		log.Info("start rpc server", "addr", addr)
+		log.Info("start rpc services", "addr", addr)
 		listener, err := net.Listen("tcp", addr)
 		if err != nil {
 			log.Error("Could not start tcp listener. ")
@@ -69,7 +69,7 @@ func (s *RpcServer) Start(ctx context.Context) error {
 
 		log.Info("Grpc info", "port", s.GrpcPort, "address", listener.Addr())
 		if err := gs.Serve(listener); err != nil {
-			log.Error("Could not GRPC server")
+			log.Error("Could not GRPC services")
 		}
 	}(s)
 	return nil

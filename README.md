@@ -8,13 +8,13 @@ parent:
 </div>
 
 <div align="center">
-  <a href="https://github.com/the-web3/rpc-service/releases/latest">
-    <img alt="Version" src="https://img.shields.io/github/tag/the-web3/rpc-service.svg" />
+  <a href="https://github.com/CavnHan/wallet-rpc-service/releases/latest">
+    <img alt="Version" src="https://img.shields.io/github/tag/CavnHan/wallet-rpc-service.svg" />
   </a>
-  <a href="https://github.com/the-web3/rpc-service/blob/main/LICENSE">
+  <a href="https://github.com/CavnHan/wallet-rpc-service/blob/main/LICENSE">
     <img alt="License: Apache-2.0" src="https://img.shields.io/github/license/the-web3/rpc-service.svg" />
   </a>
-  <a href="https://pkg.go.dev/github.com/the-web3/rpc-service">
+  <a href="https://pkg.go.dev/github.com/CavnHan/wallet-rpc-service/">
     <img alt="GoDoc" src="https://godoc.org/github.com/the-web3/rpc-service?status.svg" />
   </a>
 </div>

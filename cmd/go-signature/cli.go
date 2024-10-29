@@ -3,22 +3,23 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/CavnHan/wallet-rpc-service/services/rest"
 
 	"github.com/urfave/cli/v2"
 
 	"github.com/ethereum/go-ethereum/log"
 
+	"github.com/CavnHan/wallet-rpc-service/common/cliapp"
+	"github.com/CavnHan/wallet-rpc-service/common/opio"
+	"github.com/CavnHan/wallet-rpc-service/config"
+	"github.com/CavnHan/wallet-rpc-service/database"
+	flags2 "github.com/CavnHan/wallet-rpc-service/flags"
+	services "github.com/CavnHan/wallet-rpc-service/services/rpc"
 	"github.com/ethereum/go-ethereum/params"
-	"github.com/the-web3/rpc-service/common/cliapp"
-	"github.com/the-web3/rpc-service/common/opio"
-	"github.com/the-web3/rpc-service/config"
-	"github.com/the-web3/rpc-service/database"
-	flags2 "github.com/the-web3/rpc-service/flags"
-	services "github.com/the-web3/rpc-service/server"
 )
 
 func runRpc(ctx *cli.Context, shutdown context.CancelCauseFunc) (cliapp.Lifecycle, error) {
-	fmt.Println("running grpc server...")
+	fmt.Println("running grpc services...")
 	cfg := config.NewConfig(ctx)
 	grpcServerCfg := &services.RpcServerConfig{
 		GrpcHostname: cfg.RpcServer.Host,
@@ -50,13 +51,25 @@ func runMigrations(ctx *cli.Context) error {
 	return db.ExecuteSQLMigration(cfg.Migrations)
 }
 
+func runRestApi(ctx *cli.Context, shutdown context.CancelCauseFunc) (cliapp.Lifecycle, error) {
+	log.Info("running api...")
+	cfg := config.NewConfig(ctx)
+	return rest.NewApi(ctx.Context, &cfg)
+}
+
 func NewCli(GitCommit string, GitData string) *cli.App {
 	flags := flags2.Flags
 	return &cli.App{
 		Version:              params.VersionWithCommit(GitCommit, GitData),
-		Description:          "An exchange wallet scanner services with rpc and rest api server",
+		Description:          "An exchange wallet scanner services with rpc and rest api services",
 		EnableBashCompletion: true,
 		Commands: []*cli.Command{
+			{
+				Name:        "api",
+				Flags:       flags,
+				Description: "Run api services",
+				Action:      cliapp.LifecycleCmd(runRestApi),
+			},
 			{
 				Name:        "rpc",
 				Flags:       flags,
